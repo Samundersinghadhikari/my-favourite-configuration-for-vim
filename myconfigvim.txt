@@ -1,0 +1,128 @@
+
+
+My Vim Config
+
+If you aren’t familiar with vim, it is a text editor developed to extended the functionality of the vi editor (Vi Improved). The primary developer and maintainer is Bram Moolenaar and you can checkout his latest progress on GitHub. One of many improvements is having “infinite” undo so you could rollback many changes if you changed your mind.
+
+The standard way to customize your vim editor is using a file named .vimrc and placing this in your HOME directory in Linux or Mac. Inside this file you can configure the defaults, install plugins, and map keyboard shortcuts in each of the modes (normal, visual, visual block, insert).
+
+Configure defaults
+
+There are a few defaults that I like to adjust in vim for some quality of life improvements. There are tons more to check out if you type :help when inside vim.
+
+syntax on
+set nu
+set relativenumber
+set encoding=UTF-8
+set smarttab
+set smartindent
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set re=0
+set nowrap
+set noswapfile
+set incsearch
+set scrolloff=8
+set guicursor=
+
+syntax on enables syntax highlighting
+
+nu enables line numbers
+
+relativenumber enables showing relative line numbers so you can jump around quickly (e.g. 5j or 3k)
+
+smartindent will indent the correct amount depending on your language and where other code indents are
+
+tabstop, softtabstop, shiftwidth all set the number of spaces to indent when inside a code block
+
+expandtab replaces tab characters with spaces
+
+re sets regex (I set this for performance reasons in a React project)
+
+nowrap prevents long lines of text from wrapping
+
+noswapfile prevents swap files being created when opening an existing file in vim
+
+incsearch will highlight text as you search within a file using /
+
+scrolloff gives you X number of lines at the bottom when scrolling down
+
+guicursor keeps the cursor the same size even when going into insert mode
+
+Install Plugins
+
+There are many different plugin managers, including vim itself (as long as you are using version 8 and above) but I prefer using vim-plug. Check out the GitHub page on how to install on your system.
+
+To add plugins to vim, add the below block into your .vimrc file, note the call plug surrounding the plugins. Once added you can type :PlugInstall to install plugins. If you need to uninstall, simply comment out or delete that Plug, exit and reopen your .vimrc and run :PlugInstall again and you will be prompted to delete that directory.
+
+call plug#begin()
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdcommenter'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'preservim/nerdtree'
+Plug 'dense-analysis/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'udalov/kotlin-vim'
+call plug#end()
+
+coc.vim allows autocompletion for different languages using installed language servers. Check out the install instructions on Github for coc.vim. Depending on your language this could be a bit finicky, I am still trying to get a good configuration done for Kotlin.
+
+fzf and fzf.vim install a command line fuzzy finder so you can search through files on your system quickly. Check out the GitHub for more info.
+
+vim-devicons shows icons in the bottom vim-airline display and also when you open up NerdTree. Note: you will need to install and configure a Nerd Font.
+
+nerd-commenter allows you to comment out a single or many lines at a time with a single shortcut.
+
+vim-tmux-navigator allows you to use h, j, k, l to jump between tmux and vim sessions
+
+nerdtree-git-plugin shows when a file has been edited, deleted or added in NerdTree
+
+vim-gitgutter shows edits, deletes and adds when viewing a file in vim
+
+vim-nerdtree-syntax-highlight does syntax highlighting within NerdTree
+
+yats.vim is syntax highlighting for TypeScript
+
+nerdtree allows you to open a window with a directory of files
+
+ale is a linting engine to show invalid code styles
+
+vim-airline enhances the bottom bar showing vim mode and details about your file
+
+kotlin-vim does syntax hightlighting for Kotlin. Hasn’t worked well for me so far so ymmv.
+
+Map keyboard shortcuts
+
+I haven’t set a ton of shortcuts but one of the first ones to change is the vim leader. This is \ by default and it feels a bit awkward to type that and the command quickly. Most folks map their vim leader to space or comma.
+
+let mapleader = " "
+nnoremap <C-p> :Files<Cr>
+nnoremap <Leader>f :Rg<Cr>
+
+The two shortcuts I have set are for FZF and Ripgrep commands when in normal mode. Let’s break down the pieces here.
+
+n this sets the mode, in this instance it is normal mode but you could set v for visual or i for insert.
+
+nore this sets the command to be non-recursive. Only execute it once.
+
+<C-p> this is the keyboard shortcut I press, Ctrl + p.
+
+:Files<CR> this is the command to execute with a carriage return at the end.
+
+Conclusion
+
+Hopefully this gets you off the ground and running with a great vim configuration. I’ll share once I get a better Kotlin configuration with coc but if you have one already please share!
+
+If you want to checkout all the configuration including my zshrc and tmux config, take a look here.
+
+If you enjoyed this article, consider subscribing to Medium!
+
+If you or your company are interested in having someone conduct technical interviews then please DM me on Twitter (@Exosyphon) or visit my website. If you enjoy topics like this then you might also like my Youtube channel. If you like 3D printed stuff check out my Etsy shop. Have a great day!
